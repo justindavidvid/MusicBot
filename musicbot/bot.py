@@ -1992,6 +1992,19 @@ class MusicBot(discord.Client):
         player.playlist.clear()
         return Response(self.str.get('cmd-clear-reply', "Cleared `{0}`'s queue").format(player.voice_client.channel.guild), delete_after=20)
 
+    async def cmd_stop(self, player, channel, author, message, permissions, voice_channel):
+        """
+        Usage:
+            {command_prefix}stop
+
+        Clears the playlist, skips what is currently playing.
+        """
+
+        player.playlist.clear()
+        self.cmd_skip( player, channel, author, message, permissions, voice_channel ) #TODO get this shit workin
+
+        return Response(self.str.get('cmd-stop-reply', "{0} stopped the bot.").format(player.voice_client.channel.guild), delete_after=20)
+
     async def cmd_remove(self, user_mentions, message, author, permissions, channel, player, index=None):
         """
         Usage:
